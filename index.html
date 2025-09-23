@@ -158,6 +158,29 @@
             50% { transform: scale(0.95); }
             100% { transform: scale(1); }
         }
+        
+        /* Mobile-specific styles */
+        @media (max-width: 768px) {
+            .typewriter {
+                font-size: 1.25rem;
+                white-space: normal;
+                overflow: visible;
+                border-right: none;
+                animation: none;
+            }
+            
+            .timeline-line {
+                left: 16px;
+            }
+            
+            .timeline-item {
+                padding-left: 40px;
+            }
+            
+            .timeline-dot {
+                left: 12px;
+            }
+        }
     </style>
 </head>
 <body class="bg-black text-white overflow-x-hidden">
@@ -186,10 +209,21 @@
                 </button>
             </div>
         </div>
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-black bg-opacity-90 absolute top-16 left-0 w-full p-4">
+            <div class="flex flex-col space-y-4">
+                <a href="#home" class="hover:text-gray-300 transition-colors">Home</a>
+                <a href="#about" class="hover:text-gray-300 transition-colors">About</a>
+                <a href="#projects" class="hover:text-gray-300 transition-colors">Projects</a>
+                <a href="#skills" class="hover:text-gray-300 transition-colors">Skills</a>
+                <a href="#experience" class="hover:text-gray-300 transition-colors">Experience</a>
+                <a href="#contact" class="hover:text-gray-300 transition-colors">Contact</a>
+            </div>
+        </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden">
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
         <div class="bg-gradient-radial absolute inset-0"></div>
         
         <!-- Floating Particles -->
@@ -204,22 +238,22 @@
             <div class="floating-particle particle-2" style="top: 90%; right: 60%; animation-delay: 2.5s;"></div>
         </div>
 
-        <div class="text-center z-10 px-4">
-            <h1 class="text-6xl md:text-8xl font-bold mb-6 hero-title fade-in-up" id="heroTitle">
+        <div class="text-center z-10 px-4 py-12">
+            <h1 class="text-4xl md:text-6xl lg:text-8xl font-bold mb-4 md:mb-6 hero-title fade-in-up" id="heroTitle">
                 Hi, I'm <span class="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">Sreenath</span>
             </h1>
-            <div class="text-xl md:text-2xl text-gray-300 typewriter mb-8 fade-in-up" id="heroSubtitle">
+            <div class="text-xl md:text-2xl text-gray-300 typewriter mb-6 md:mb-8 fade-in-up" id="heroSubtitle">
                 AI Developer & Machine Learning Engineer
             </div>
-            <p class="text-lg text-gray-400 max-w-2xl mx-auto mb-8 fade-in-up">
+            <p class="text-base md:text-lg text-gray-400 max-w-2xl mx-auto mb-8 fade-in-up">
                 Specializing in developing intelligent solutions using advanced artificial intelligence 
                 and machine learning techniques. Transforming complex data into actionable insights.
             </p>
             <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 fade-in-up">
-                <a href="#projects" class="px-8 py-4 bg-white text-black rounded-full hover:bg-gray-200 transition-all transform hover:scale-105 hover:shadow-xl font-semibold btn-animate">
+                <a href="#projects" class="px-6 py-3 md:px-8 md:py-4 bg-white text-black rounded-full hover:bg-gray-200 transition-all transform hover:scale-105 hover:shadow-xl font-semibold btn-animate w-full sm:w-auto">
                     View Projects
                 </a>
-                <a href="#contact" class="px-8 py-4 border-2 border-white rounded-full hover:bg-white hover:text-black transition-all transform hover:scale-105 font-semibold btn-animate">
+                <a href="#contact" class="px-6 py-3 md:px-8 md:py-4 border-2 border-white rounded-full hover:bg-white hover:text-black transition-all transform hover:scale-105 font-semibold btn-animate w-full sm:w-auto">
                     Contact Me
                 </a>
             </div>
@@ -227,23 +261,23 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-20 px-4">
+    <section id="about" class="py-16 md:py-20 px-4">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold text-center mb-16 fade-in-up">About Me</h2>
-            <div class="grid md:grid-cols-2 gap-12 items-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 md:mb-16 fade-in-up">About Me</h2>
+            <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
                 <div class="fade-in-up">
-                    <h3 class="text-2xl font-semibold mb-6">AI & Machine Learning Developer</h3>
-                    <p class="text-gray-300 mb-6 leading-relaxed">
+                    <h3 class="text-xl md:text-2xl font-semibold mb-4 md:mb-6">AI & Machine Learning Developer</h3>
+                    <p class="text-gray-300 mb-4 md:mb-6 leading-relaxed">
                         I'm a passionate AI and Deep Learning developer with expertise in Python programming, 
                         data preprocessing, and building machine learning models. Currently pursuing advanced 
                         techniques in AI through hands-on projects and real-world applications.
                     </p>
-                    <p class="text-gray-300 mb-6 leading-relaxed">
+                    <p class="text-gray-300 mb-4 md:mb-6 leading-relaxed">
                         With a strong foundation in Computer Science and specialized training in AI/ML/DL, 
                         I focus on creating intelligent solutions using frameworks like TensorFlow, Keras, 
                         and PyTorch.
                     </p>
-                    <div class="space-y-4">
+                    <div class="space-y-3">
                         <div class="flex items-center space-x-3">
                             <div class="w-2 h-2 bg-white rounded-full"></div>
                             <span>BSc Computer Science Graduate</span>
@@ -258,9 +292,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="fade-in-up glassmorphism p-8 rounded-2xl">
-                    <h4 class="text-xl font-semibold mb-6">Quick Facts</h4>
-                    <div class="space-y-4">
+                <div class="fade-in-up glassmorphism p-6 md:p-8 rounded-2xl">
+                    <h4 class="text-lg md:text-xl font-semibold mb-4 md:mb-6">Quick Facts</h4>
+                    <div class="space-y-3 md:space-y-4">
                         <div class="flex justify-between">
                             <span class="text-gray-300">Location</span>
                             <span>Alappuzha, Kerala</span>
@@ -284,13 +318,13 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-20 px-4 bg-gray-900 bg-opacity-20">
+    <section id="projects" class="py-16 md:py-20 px-4 bg-gray-900 bg-opacity-20">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold text-center mb-16 fade-in-up">Featured Projects</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 md:mb-16 fade-in-up">Featured Projects</h2>
+            <div class="grid md:grid-cols-2 gap-6 md:gap-8">
                 <!-- Project 1 -->
                 <div class="glassmorphism rounded-2xl p-6 card-hover transition-all duration-300 fade-in-up">
-                    <h3 class="text-xl font-semibold mb-4">Emotion Detection App</h3>
+                    <h3 class="text-lg md:text-xl font-semibold mb-4">Emotion Detection App</h3>
                     <p class="text-gray-300 mb-6">
                         Real-time facial emotion recognition using TensorFlow and Keras CNNs on the FER-2013 dataset 
                         with OpenCV preprocessing.
@@ -309,7 +343,7 @@
 
                 <!-- Project 2 -->
                 <div class="glassmorphism rounded-2xl p-6 card-hover transition-all duration-300 fade-in-up">
-                    <h3 class="text-xl font-semibold mb-4">Loan Approval Predictor</h3>
+                    <h3 class="text-lg md:text-xl font-semibold mb-4">Loan Approval Predictor</h3>
                     <p class="text-gray-300 mb-6">
                         Streamlit app predicting loan approvals using scikit-learn's logistic regression 
                         and random forests with advanced data preprocessing.
@@ -328,7 +362,7 @@
 
                 <!-- Project 3 -->
                 <div class="glassmorphism rounded-2xl p-6 card-hover transition-all duration-300 fade-in-up">
-                    <h3 class="text-xl font-semibold mb-4">Diabetes Risk Predictor</h3>
+                    <h3 class="text-lg md:text-xl font-semibold mb-4">Diabetes Risk Predictor</h3>
                     <p class="text-gray-300 mb-6">
                         Streamlit tool predicting diabetes risk using decision trees and XGBoost 
                         with comprehensive data analysis and visualization.
@@ -347,7 +381,7 @@
 
                 <!-- Project 4 -->
                 <div class="glassmorphism rounded-2xl p-6 card-hover transition-all duration-300 fade-in-up">
-                    <h3 class="text-xl font-semibold mb-4">Lead Conversion Predictor</h3>
+                    <h3 class="text-lg md:text-xl font-semibold mb-4">Lead Conversion Predictor</h3>
                     <p class="text-gray-300 mb-6">
                         Advanced lead scoring system using gradient boosting and PyTorch 
                         for CRM optimization with conversion probability analysis.
@@ -368,13 +402,13 @@
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="py-20 px-4">
+    <section id="skills" class="py-16 md:py-20 px-4">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold text-center mb-16 fade-in-up">Skills & Expertise</h2>
-            <div class="grid md:grid-cols-2 gap-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 md:mb-16 fade-in-up">Skills & Expertise</h2>
+            <div class="grid md:grid-cols-2 gap-8 md:gap-12">
                 <!-- Technical Skills -->
                 <div class="fade-in-up">
-                    <h3 class="text-2xl font-semibold mb-8">Technical Skills</h3>
+                    <h3 class="text-xl md:text-2xl font-semibold mb-6 md:mb-8">Technical Skills</h3>
                     <div class="space-y-6">
                         <div>
                             <div class="flex justify-between mb-2">
@@ -426,7 +460,7 @@
 
                 <!-- Soft Skills -->
                 <div class="fade-in-up">
-                    <h3 class="text-2xl font-semibold mb-8">Soft Skills</h3>
+                    <h3 class="text-xl md:text-2xl font-semibold mb-6 md:mb-8">Soft Skills</h3>
                     <div class="grid grid-cols-2 gap-4">
                         <div class="glassmorphism p-4 rounded-lg text-center">
                             <div class="text-3xl mb-2">🎯</div>
@@ -459,21 +493,21 @@
     </section>
 
     <!-- Experience & Education Section -->
-    <section id="experience" class="py-20 px-4 bg-gray-900 bg-opacity-20">
+    <section id="experience" class="py-16 md:py-20 px-4 bg-gray-900 bg-opacity-20">
         <div class="max-w-4xl mx-auto">
-            <h2 class="text-4xl font-bold text-center mb-16 fade-in-up">Experience & Education</h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 md:mb-16 fade-in-up">Experience & Education</h2>
             <div class="relative">
                 <!-- Timeline Line -->
-                <div class="absolute left-8 top-0 bottom-0 w-0.5 timeline-line"></div>
+                <div class="absolute left-8 top-0 bottom-0 w-0.5 timeline-line md:left-8"></div>
                 
                 <!-- Timeline Items -->
                 <div class="space-y-12">
                     <!-- Current Internship -->
-                    <div class="relative flex items-start fade-in-up">
-                        <div class="absolute left-6 w-4 h-4 bg-white rounded-full border-4 border-black"></div>
-                        <div class="ml-20 glassmorphism p-6 rounded-lg">
-                            <div class="flex items-center justify-between mb-2">
-                                <h3 class="text-xl font-semibold">AI, ML & Deep Learning Intern</h3>
+                    <div class="relative flex items-start fade-in-up timeline-item">
+                        <div class="absolute left-6 w-4 h-4 bg-white rounded-full border-4 border-black timeline-dot"></div>
+                        <div class="ml-20 md:ml-20 glassmorphism p-6 rounded-lg">
+                            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+                                <h3 class="text-lg md:text-xl font-semibold">AI, ML & Deep Learning Intern</h3>
                                 <span class="text-sm text-gray-400">Feb 2025 - Present</span>
                             </div>
                             <p class="text-gray-300 mb-2">Tinos Software and Security Solutions</p>
@@ -485,11 +519,11 @@
                     </div>
 
                     <!-- Previous Work -->
-                    <div class="relative flex items-start fade-in-up">
-                        <div class="absolute left-6 w-4 h-4 bg-gray-400 rounded-full border-4 border-black"></div>
-                        <div class="ml-20 glassmorphism p-6 rounded-lg">
-                            <div class="flex items-center justify-between mb-2">
-                                <h3 class="text-xl font-semibold">Clerk</h3>
+                    <div class="relative flex items-start fade-in-up timeline-item">
+                        <div class="absolute left-6 w-4 h-4 bg-gray-400 rounded-full border-4 border-black timeline-dot"></div>
+                        <div class="ml-20 md:ml-20 glassmorphism p-6 rounded-lg">
+                            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+                                <h3 class="text-lg md:text-xl font-semibold">Clerk</h3>
                                 <span class="text-sm text-gray-400">Apr 2020 - Mar 2022</span>
                             </div>
                             <p class="text-gray-300 mb-2">Devi Phosphates, Alappuzha</p>
@@ -501,11 +535,11 @@
                     </div>
 
                     <!-- Education -->
-                    <div class="relative flex items-start fade-in-up">
-                        <div class="absolute left-6 w-4 h-4 bg-gray-400 rounded-full border-4 border-black"></div>
-                        <div class="ml-20 glassmorphism p-6 rounded-lg">
-                            <div class="flex items-center justify-between mb-2">
-                                <h3 class="text-xl font-semibold">BSc Computer Science</h3>
+                    <div class="relative flex items-start fade-in-up timeline-item">
+                        <div class="absolute left-6 w-4 h-4 bg-gray-400 rounded-full border-4 border-black timeline-dot"></div>
+                        <div class="ml-20 md:ml-20 glassmorphism p-6 rounded-lg">
+                            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+                                <h3 class="text-lg md:text-xl font-semibold">BSc Computer Science</h3>
                                 <span class="text-sm text-gray-400">July 2017 - Mar 2020</span>
                             </div>
                             <p class="text-gray-300 mb-2">Naipunya School of Management, Cherthala</p>
@@ -517,11 +551,11 @@
                     </div>
 
                     <!-- Certification -->
-                    <div class="relative flex items-start fade-in-up">
-                        <div class="absolute left-6 w-4 h-4 bg-white rounded-full border-4 border-black"></div>
-                        <div class="ml-20 glassmorphism p-6 rounded-lg">
-                            <div class="flex items-center justify-between mb-2">
-                                <h3 class="text-xl font-semibold">Python Core AI with ML & DL</h3>
+                    <div class="relative flex items-start fade-in-up timeline-item">
+                        <div class="absolute left-6 w-4 h-4 bg-white rounded-full border-4 border-black timeline-dot"></div>
+                        <div class="ml-20 md:ml-20 glassmorphism p-6 rounded-lg">
+                            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+                                <h3 class="text-lg md:text-xl font-semibold">Python Core AI with ML & DL</h3>
                                 <span class="text-sm text-gray-400">Completed</span>
                             </div>
                             <p class="text-gray-300 mb-2">Techmindz, Infopark Ernakulam</p>
@@ -537,14 +571,14 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-20 px-4">
+    <section id="contact" class="py-16 md:py-20 px-4">
         <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-16 fade-in-up">Let's Connect</h2>
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 md:mb-16 fade-in-up">Let's Connect</h2>
             
-            <div class="grid md:grid-cols-2 gap-12">
+            <div class="grid md:grid-cols-2 gap-8 md:gap-12">
                 <!-- Contact Info -->
                 <div class="fade-in-up">
-                    <h3 class="text-2xl font-semibold mb-8">Get In Touch</h3>
+                    <h3 class="text-xl md:text-2xl font-semibold mb-6 md:mb-8">Get In Touch</h3>
                     <div class="space-y-6 text-left">
                         <div class="flex items-center space-x-4">
                             <div class="w-12 h-12 bg-white bg-opacity-10 rounded-full flex items-center justify-center">
@@ -598,7 +632,7 @@
 
                 <!-- Contact Form -->
                 <div class="fade-in-up">
-                    <form action="https://formspree.io/f/xdkwoopq" method="POST" class="glassmorphism p-8 rounded-2xl">
+                    <form action="https://formspree.io/f/xdkwoopq" method="POST" class="glassmorphism p-6 md:p-8 rounded-2xl">
                         <div class="space-y-6">
                             <div>
                                 <input 
@@ -652,18 +686,16 @@
 
         // Mobile Menu Toggle
         const menuToggle = document.getElementById('menuToggle');
-        const navLinks = document.querySelector('.md\\:flex');
+        const mobileMenu = document.getElementById('mobileMenu');
         menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('hidden');
-            navLinks.classList.toggle('flex');
-            navLinks.classList.toggle('flex-col');
-            navLinks.classList.toggle('absolute');
-            navLinks.classList.toggle('top-16');
-            navLinks.classList.toggle('left-0');
-            navLinks.classList.toggle('w-full');
-            navLinks.classList.toggle('bg-black');
-            navLinks.classList.toggle('bg-opacity-90');
-            navLinks.classList.toggle('p-4');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
         });
 
         // Scroll Animations
