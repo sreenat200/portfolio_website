@@ -101,6 +101,119 @@
             animation: rotate 12s linear infinite;
         }
         
+        /* Neural Network Animation */
+        .neural-network {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            right: 5%;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        
+        .neuron {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(120,119,198,0.6));
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+        
+        .connection {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+            transform-origin: left center;
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        /* Data Flow Animation */
+        .data-flow {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            bottom: 15%;
+            left: 8%;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        
+        .data-packet {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, #4facfe, #00f2fe);
+            border-radius: 50%;
+            box-shadow: 0 0 8px #4facfe;
+        }
+        
+        /* Matrix Animation */
+        .matrix-container {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            top: 60%;
+            right: 10%;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        
+        .matrix-cell {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: rgba(255,255,255,0.7);
+            animation: matrixPulse 4s ease-in-out infinite;
+        }
+        
+        /* 3D Cube Animation */
+        .cube-container {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            top: 25%;
+            left: 15%;
+            transform-style: preserve-3d;
+            animation: cubeRotate 20s linear infinite;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        
+        .cube-face {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 2px solid rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .cube-face-front { transform: translateZ(50px); }
+        .cube-face-back { transform: rotateY(180deg) translateZ(50px); }
+        .cube-face-right { transform: rotateY(90deg) translateZ(50px); }
+        .cube-face-left { transform: rotateY(-90deg) translateZ(50px); }
+        .cube-face-top { transform: rotateX(90deg) translateZ(50px); }
+        .cube-face-bottom { transform: rotateX(-90deg) translateZ(50px); }
+        
+        /* Particle System */
+        .particle-system {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .system-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 50%;
+            animation: systemFloat 15s linear infinite;
+        }
+        
         @keyframes float {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
             50% { transform: translateY(-20px) rotate(180deg); }
@@ -109,6 +222,38 @@
         @keyframes rotate {
             0% { transform: rotateX(0) rotateY(0) rotateZ(0); }
             100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+        
+        @keyframes matrixPulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+        }
+        
+        @keyframes cubeRotate {
+            0% { transform: rotateX(0) rotateY(0) rotateZ(0); }
+            100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
+        }
+        
+        @keyframes systemFloat {
+            0% { 
+                transform: translateY(100vh) translateX(0) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% { 
+                transform: translateY(-100vh) translateX(100px) scale(1.5);
+                opacity: 0;
+            }
         }
         
         @keyframes typewriter {
@@ -231,6 +376,10 @@
             .timeline-dot {
                 left: 12px;
             }
+            
+            .neural-network, .data-flow, .matrix-container, .cube-container {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -276,6 +425,28 @@
     <!-- Hero Section -->
     <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
         <div class="bg-gradient-radial absolute inset-0"></div>
+        
+        <!-- Particle System -->
+        <div class="particle-system" id="particleSystem"></div>
+        
+        <!-- Neural Network Animation -->
+        <div class="neural-network" id="neuralNetwork"></div>
+        
+        <!-- Data Flow Animation -->
+        <div class="data-flow" id="dataFlow"></div>
+        
+        <!-- Matrix Animation -->
+        <div class="matrix-container" id="matrixContainer"></div>
+        
+        <!-- 3D Cube Animation -->
+        <div class="cube-container">
+            <div class="cube-face cube-face-front"></div>
+            <div class="cube-face cube-face-back"></div>
+            <div class="cube-face cube-face-right"></div>
+            <div class="cube-face cube-face-left"></div>
+            <div class="cube-face cube-face-top"></div>
+            <div class="cube-face cube-face-bottom"></div>
+        </div>
         
         <!-- Floating Particles -->
         <div class="absolute inset-0 overflow-hidden">
@@ -815,6 +986,144 @@
                 }, 300);
             });
         });
+
+        // Neural Network Animation
+        function createNeuralNetwork() {
+            const container = document.getElementById('neuralNetwork');
+            const neurons = [];
+            const connections = [];
+            
+            // Create neurons
+            for (let layer = 0; layer < 3; layer++) {
+                const neuronsInLayer = layer === 1 ? 4 : 3;
+                for (let i = 0; i < neuronsInLayer; i++) {
+                    const neuron = document.createElement('div');
+                    neuron.className = 'neuron';
+                    const x = layer * 100;
+                    const y = (i + 1) * (300 / (neuronsInLayer + 1));
+                    neuron.style.left = `${x}px`;
+                    neuron.style.top = `${y}px`;
+                    container.appendChild(neuron);
+                    neurons.push({ element: neuron, x, y, layer });
+                }
+            }
+            
+            // Create connections
+            for (let i = 0; i < neurons.length; i++) {
+                for (let j = 0; j < neurons.length; j++) {
+                    if (neurons[j].layer === neurons[i].layer + 1) {
+                        const connection = document.createElement('div');
+                        connection.className = 'connection';
+                        const dx = neurons[j].x - neurons[i].x;
+                        const dy = neurons[j].y - neurons[i].y;
+                        const length = Math.sqrt(dx * dx + dy * dy);
+                        const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+                        
+                        connection.style.width = `${length}px`;
+                        connection.style.left = `${neurons[i].x + 6}px`;
+                        connection.style.top = `${neurons[i].y + 6}px`;
+                        connection.style.transform = `rotate(${angle}deg)`;
+                        connection.style.animationDelay = `${Math.random() * 3}s`;
+                        
+                        container.appendChild(connection);
+                    }
+                }
+            }
+        }
+
+        // Data Flow Animation
+        function createDataFlow() {
+            const container = document.getElementById('dataFlow');
+            const paths = [
+                { start: { x: 0, y: 100 }, end: { x: 200, y: 100 } },
+                { start: { x: 0, y: 50 }, end: { x: 150, y: 150 } },
+                { start: { x: 0, y: 150 }, end: { x: 150, y: 50 } }
+            ];
+            
+            paths.forEach((path, index) => {
+                for (let i = 0; i < 5; i++) {
+                    const packet = document.createElement('div');
+                    packet.className = 'data-packet';
+                    packet.style.animation = `dataFlow${index} ${3 + i * 0.5}s linear infinite`;
+                    packet.style.animationDelay = `${i * 0.6}s`;
+                    container.appendChild(packet);
+                }
+                
+                // Create keyframes for this path
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes dataFlow${index} {
+                        0% {
+                            left: ${path.start.x}px;
+                            top: ${path.start.y}px;
+                            opacity: 0;
+                        }
+                        10% {
+                            opacity: 1;
+                        }
+                        90% {
+                            opacity: 1;
+                        }
+                        100% {
+                            left: ${path.end.x}px;
+                            top: ${path.end.y}px;
+                            opacity: 0;
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+            });
+        }
+
+        // Matrix Animation
+        function createMatrix() {
+            const container = document.getElementById('matrixContainer');
+            const size = 5;
+            const cellSize = 40;
+            
+            for (let i = 0; i < size; i++) {
+                for (let j = 0; j < size; j++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'matrix-cell';
+                    cell.style.left = `${i * cellSize + 25}px`;
+                    cell.style.top = `${j * cellSize + 25}px`;
+                    cell.style.animationDelay = `${(i + j) * 0.2}s`;
+                    container.appendChild(cell);
+                }
+            }
+        }
+
+        // Particle System
+        function createParticleSystem() {
+            const container = document.getElementById('particleSystem');
+            
+            function createParticle() {
+                const particle = document.createElement('div');
+                particle.className = 'system-particle';
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.animationDuration = `${10 + Math.random() * 10}s`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                container.appendChild(particle);
+                
+                setTimeout(() => {
+                    particle.remove();
+                }, 20000);
+            }
+            
+            // Create initial particles
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => createParticle(), i * 500);
+            }
+            
+            // Continue creating particles
+            setInterval(createParticle, 1000);
+        }
+
+        // Initialize animations
+        createNeuralNetwork();
+        createDataFlow();
+        createMatrix();
+        createParticleSystem();
     </script>
 </body>
 </html>
