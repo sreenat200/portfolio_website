@@ -1,912 +1,719 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sreenath N - AI Developer</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Sreenath N | AI & Machine Learning Engineer</title>
+    
+    <!-- Fonts: Inter for body, Orbitron for headers (Tech feel) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Config for Colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        tech: ['Orbitron', 'sans-serif'],
+                    },
+                    colors: {
+                        ai: {
+                            100: '#e0e7ff',
+                            500: '#6366f1', // Indigo
+                            900: '#1e1b4b',
+                        },
+                        dark: {
+                            900: '#050505',
+                            800: '#0a0a0a',
+                            700: '#121212',
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        glow: {
+                            '0%': { boxShadow: '0 0 5px rgba(99, 102, 241, 0.2)' },
+                            '100%': { boxShadow: '0 0 20px rgba(99, 102, 241, 0.6), 0 0 10px rgba(99, 102, 241, 0.4)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        * {
-            font-family: 'Inter', sans-serif;
+        /* Global Reset & Base */
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            overflow-x: hidden;
         }
-        
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Orbitron', sans-serif;
-        }
-        
-        .hero-title {
-            font-family: 'Orbitron', sans-serif;
-        }
-        
-        .bg-gradient-radial {
-            background: radial-gradient(circle at 30% 40%, rgba(120, 119, 198, 0.3), transparent 50%),
-                       radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1), transparent 50%),
-                       radial-gradient(circle at 40% 80%, rgba(120, 119, 198, 0.2), transparent 50%);
-        }
-        
-        .floating-particle {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(1px);
-            animation: float 8s ease-in-out infinite;
-        }
-        
-        .particle-1 {
-            width: 4px;
-            height: 4px;
-            background: linear-gradient(45deg, #ffffff, #cccccc);
-            box-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
-        }
-        
-        .particle-2 {
-            width: 6px;
-            height: 6px;
-            background: linear-gradient(45deg, #f0f0f0, #999999);
-            box-shadow: 0 0 8px rgba(240, 240, 240, 0.4);
-        }
-        
-        .particle-3 {
-            width: 3px;
-            height: 3px;
-            background: radial-gradient(circle, #ffffff, transparent);
-            box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
-        }
-        
-        /* AI-themed particles */
-        .particle-neural {
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
             width: 8px;
-            height: 8px;
-            background: radial-gradient(circle, rgba(255,255,255,0.8), rgba(120,119,198,0.4));
-            border-radius: 50%;
-            position: relative;
-            animation: float 10s ease-in-out infinite;
         }
-        
-        .particle-neural::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 20px;
-            height: 1px;
-            background: rgba(255,255,255,0.3);
-            transform: translate(-50%, -50%) rotate(45deg);
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
         }
-        
-        .particle-data {
-            width: 6px;
-            height: 6px;
-            background: linear-gradient(45deg, #4facfe, #00f2fe);
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            animation: float 9s ease-in-out infinite;
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
         }
-        
-        .particle-matrix {
-            width: 10px;
-            height: 4px;
-            background: linear-gradient(90deg, rgba(255,255,255,0.7), rgba(120,119,198,0.5));
-            border-radius: 2px;
-            animation: float 7s ease-in-out infinite;
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6366f1;
         }
-        
-        .particle-cube {
-            width: 8px;
-            height: 8px;
-            background: rgba(255,255,255,0.2);
-            border: 1px solid rgba(255,255,255,0.5);
-            transform-style: preserve-3d;
-            animation: rotate 12s linear infinite;
-        }
-        
-        /* Neural Network Animation */
-        .neural-network {
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            top: 10%;
-            right: 5%;
-            opacity: 0.3;
-            pointer-events: none;
-        }
-        
-        .neuron {
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(120,119,198,0.6));
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(255,255,255,0.5);
-        }
-        
-        .connection {
-            position: absolute;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
-            transform-origin: left center;
-            animation: pulse 3s ease-in-out infinite;
-        }
-        
-        /* Data Flow Animation */
-        .data-flow {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            bottom: 15%;
-            left: 8%;
-            opacity: 0.4;
-            pointer-events: none;
-        }
-        
-        .data-packet {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: radial-gradient(circle, #4facfe, #00f2fe);
-            border-radius: 50%;
-            box-shadow: 0 0 8px #4facfe;
-        }
-        
-        /* Matrix Animation */
-        .matrix-container {
-            position: absolute;
-            width: 250px;
-            height: 250px;
-            top: 60%;
-            right: 10%;
-            opacity: 0.3;
-            pointer-events: none;
-        }
-        
-        .matrix-cell {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: rgba(255,255,255,0.7);
-            animation: matrixPulse 4s ease-in-out infinite;
-        }
-        
-        /* 3D Cube Animation */
-        .cube-container {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            top: 25%;
-            left: 15%;
-            transform-style: preserve-3d;
-            animation: cubeRotate 20s linear infinite;
-            opacity: 0.4;
-            pointer-events: none;
-        }
-        
-        .cube-face {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            border: 2px solid rgba(255,255,255,0.5);
-            background: rgba(255,255,255,0.1);
-        }
-        
-        .cube-face-front { transform: translateZ(50px); }
-        .cube-face-back { transform: rotateY(180deg) translateZ(50px); }
-        .cube-face-right { transform: rotateY(90deg) translateZ(50px); }
-        .cube-face-left { transform: rotateY(-90deg) translateZ(50px); }
-        .cube-face-top { transform: rotateX(90deg) translateZ(50px); }
-        .cube-face-bottom { transform: rotateX(-90deg) translateZ(50px); }
-        
-        /* Particle System */
-        .particle-system {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            pointer-events: none;
-        }
-        
-        .system-particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(255,255,255,0.8);
-            border-radius: 50%;
-            animation: systemFloat 15s linear infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
-        
-        @keyframes rotate {
-            0% { transform: rotateX(0) rotateY(0) rotateZ(0); }
-            100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.8; }
-        }
-        
-        @keyframes matrixPulse {
-            0%, 100% { transform: scale(1); opacity: 0.3; }
-            50% { transform: scale(1.2); opacity: 0.7; }
-        }
-        
-        @keyframes cubeRotate {
-            0% { transform: rotateX(0) rotateY(0) rotateZ(0); }
-            100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
-        }
-        
-        @keyframes systemFloat {
-            0% { 
-                transform: translateY(100vh) translateX(0) scale(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% { 
-                transform: translateY(-100vh) translateX(100px) scale(1.5);
-                opacity: 0;
-            }
-        }
-        
-        @keyframes typewriter {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-        
-        @keyframes blink {
-            from, to { border-color: transparent; }
-            50% { border-color: white; }
-        }
-        
-        .typewriter {
-            overflow: hidden;
-            border-right: 2px solid white;
-            white-space: nowrap;
-            animation: typewriter 3s steps(40, end), blink 1s step-end infinite;
-        }
-        
-        .fade-in-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        
-        .fade-in-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .card-hover:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(255, 255, 255, 0.1);
-        }
-        
-        .skill-bar {
-            background: linear-gradient(90deg, #ffffff, #888888);
-            border-radius: 10px;
-            height: 6px;
-            overflow: hidden;
-        }
-        
-        .skill-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #ffffff, #cccccc);
-            border-radius: 10px;
-            transform: translateX(-100%);
-            animation: fillBar 2s ease-out forwards;
-        }
-        
-        @keyframes fillBar {
-            to { transform: translateX(0); }
-        }
-        
-        .timeline-line {
-            background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.3), transparent);
-        }
-        
-        .glassmorphism {
-            background: rgba(255, 255, 255, 0.08);
+
+        /* Glassmorphism Utilities */
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
         
-        .card-hover {
+        .glass-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        
-        .card-hover:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(255, 255, 255, 0.15);
+
+        .glass-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: 0 20px 40px -10px rgba(99, 102, 241, 0.15);
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(to right, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
-        .scroll-indicator {
+        .text-gradient-accent {
+            background: linear-gradient(to right, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Canvas Positioning */
+        #bg-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 3px;
-            background: rgba(255, 255, 255, 0.1);
-            z-index: 9999;
-        }
-        
-        .scroll-progress {
             height: 100%;
-            background: linear-gradient(90deg, #ffffff, #888888);
-            width: 0%;
-            transition: width 0.3s ease;
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        /* Skill Bar Animation */
+        .skill-progress {
+            width: 0;
+            transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        /* Timeline Styling */
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 20px; /* Mobile adjustment */
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, #6366f1, transparent);
+        }
+        @media (min-width: 768px) {
+            .timeline-line::before {
+                left: 50%;
+                transform: translateX(-50%);
+            }
         }
         
-        .btn-click {
-            animation: buttonClick 0.3s ease;
+        /* Typewriter Cursor */
+        .cursor-blink {
+            animation: blink 1s step-end infinite;
         }
-        
-        @keyframes buttonClick {
-            0% { transform: scale(1); }
-            50% { transform: scale(0.95); }
-            100% { transform: scale(1); }
-        }
-        
-        /* Mobile-specific styles */
-        @media (max-width: 768px) {
-            .typewriter {
-                font-size: 1.25rem;
-                white-space: normal;
-                overflow: visible;
-                border-right: none;
-                animation: none;
-            }
-            
-            .timeline-line {
-                left: 16px;
-            }
-            
-            .timeline-item {
-                padding-left: 40px;
-            }
-            
-            .timeline-dot {
-                left: 12px;
-            }
-            
-            .neural-network, .data-flow, .matrix-container, .cube-container {
-                display: none;
-            }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
     </style>
 </head>
-<body class="bg-black text-white overflow-x-hidden">
-    <!-- Scroll Progress Bar -->
-    <div class="scroll-indicator">
-        <div class="scroll-progress" id="scrollProgress"></div>
-    </div>
+<body class="antialiased selection:bg-indigo-500 selection:text-white">
+
+    <!-- Background Animation -->
+    <canvas id="bg-canvas"></canvas>
 
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 glassmorphism">
+    <nav class="fixed top-0 w-full z-50 glass border-b border-white/5 transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center py-4">
-                <div class="text-xl font-bold">Sreenath N</div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#home" class="hover:text-gray-300 transition-colors">Home</a>
-                    <a href="#about" class="hover:text-gray-300 transition-colors">About</a>
-                    <a href="#projects" class="hover:text-gray-300 transition-colors">Projects</a>
-                    <a href="#skills" class="hover:text-gray-300 transition-colors">Skills</a>
-                    <a href="#experience" class="hover:text-gray-300 transition-colors">Experience</a>
-                    <a href="#contact" class="hover:text-gray-300 transition-colors">Contact</a>
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="font-tech text-2xl font-bold tracking-wider text-white">
+                        SR<span class="text-indigo-500">EENATH</span>
+                    </a>
                 </div>
-                <button id="menuToggle" class="md:hidden">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#home" class="text-sm font-medium hover:text-indigo-400 transition-colors">Home</a>
+                    <a href="#about" class="text-sm font-medium hover:text-indigo-400 transition-colors">About</a>
+                    <a href="#experience" class="text-sm font-medium hover:text-indigo-400 transition-colors">Experience</a>
+                    <a href="#projects" class="text-sm font-medium hover:text-indigo-400 transition-colors">Projects</a>
+                    <a href="#skills" class="text-sm font-medium hover:text-indigo-400 transition-colors">Skills</a>
+                    <a href="#contact" class="px-5 py-2 text-sm font-bold text-white bg-indigo-600 rounded-full hover:bg-indigo-500 transition-all shadow-lg shadow-indigo-500/20">Contact</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
-        <!-- Mobile Menu -->
-        <div id="mobileMenu" class="hidden md:hidden bg-black bg-opacity-90 absolute top-16 left-0 w-full p-4">
-            <div class="flex flex-col space-y-4">
-                <a href="#home" class="hover:text-gray-300 transition-colors">Home</a>
-                <a href="#about" class="hover:text-gray-300 transition-colors">About</a>
-                <a href="#projects" class="hover:text-gray-300 transition-colors">Projects</a>
-                <a href="#skills" class="hover:text-gray-300 transition-colors">Skills</a>
-                <a href="#experience" class="hover:text-gray-300 transition-colors">Experience</a>
-                <a href="#contact" class="hover:text-gray-300 transition-colors">Contact</a>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden glass border-t border-white/5 absolute w-full">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-white/10">Home</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-white/10">About</a>
+                <a href="#experience" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-white/10">Experience</a>
+                <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-white/10">Projects</a>
+                <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-white/10">Skills</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-indigo-400">Contact</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
-        <div class="bg-gradient-radial absolute inset-0"></div>
-        
-        <!-- Particle System -->
-        <div class="particle-system" id="particleSystem"></div>
-        
-        <!-- Neural Network Animation -->
-        <div class="neural-network" id="neuralNetwork"></div>
-        
-        <!-- Data Flow Animation -->
-        <div class="data-flow" id="dataFlow"></div>
-        
-        <!-- Matrix Animation -->
-        <div class="matrix-container" id="matrixContainer"></div>
-        
-        <!-- 3D Cube Animation -->
-        <div class="cube-container">
-            <div class="cube-face cube-face-front"></div>
-            <div class="cube-face cube-face-back"></div>
-            <div class="cube-face cube-face-right"></div>
-            <div class="cube-face cube-face-left"></div>
-            <div class="cube-face cube-face-top"></div>
-            <div class="cube-face cube-face-bottom"></div>
-        </div>
-        
-        <!-- Floating Particles -->
-        <div class="absolute inset-0 overflow-hidden">
-            <!-- Original particles -->
-            <div class="floating-particle particle-1" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
-            <div class="floating-particle particle-2" style="top: 80%; left: 20%; animation-delay: 2s;"></div>
-            <div class="floating-particle particle-3" style="top: 40%; right: 15%; animation-delay: 4s;"></div>
-            <div class="floating-particle particle-1" style="top: 70%; right: 30%; animation-delay: 1s;"></div>
-            <div class="floating-particle particle-2" style="top: 30%; left: 60%; animation-delay: 3s;"></div>
-            <div class="floating-particle particle-3" style="top: 15%; right: 40%; animation-delay: 5s;"></div>
-            <div class="floating-particle particle-1" style="top: 60%; left: 80%; animation-delay: 1.5s;"></div>
-            <div class="floating-particle particle-2" style="top: 90%; right: 60%; animation-delay: 2.5s;"></div>
+    <section id="home" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             
-            <!-- AI-themed particles -->
-            <div class="particle-neural" style="top: 25%; left: 30%; animation-delay: 0.7s;"></div>
-            <div class="particle-neural" style="top: 65%; right: 25%; animation-delay: 3.2s;"></div>
-            <div class="particle-data" style="top: 35%; right: 35%; animation-delay: 1.8s;"></div>
-            <div class="particle-data" style="top: 75%; left: 45%; animation-delay: 4.5s;"></div>
-            <div class="particle-matrix" style="top: 50%; left: 25%; animation-delay: 2.3s;"></div>
-            <div class="particle-matrix" style="top: 15%; right: 15%; animation-delay: 5.7s;"></div>
-            <div class="particle-cube" style="top: 85%; right: 45%; animation-delay: 0.4s;"></div>
-            <div class="particle-cube" style="top: 45%; left: 75%; animation-delay: 3.8s;"></div>
-        </div>
+            <!-- Text Content -->
+            <div class="space-y-8 order-2 lg:order-1 fade-in-section">
+                <div class="inline-flex items-center space-x-2 bg-indigo-900/30 border border-indigo-500/30 rounded-full px-4 py-1.5">
+                    <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
+                    <span class="text-xs font-semibold text-indigo-300 tracking-wider uppercase">Available for Opportunities</span>
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl font-tech font-black leading-tight">
+                    Hi, I'm <br>
+                    <span class="text-gradient-accent">Sreenath N</span>
+                </h1>
+                
+                <div class="h-8 md:h-10">
+                    <h2 class="text-xl md:text-3xl text-gray-300 font-light">
+                        <span id="typewriter"></span><span class="cursor-blink">|</span>
+                    </h2>
+                </div>
 
-        <div class="text-center z-10 px-4 py-12">
-            <h1 class="text-4xl md:text-6xl lg:text-8xl font-bold mb-4 md:mb-6 hero-title fade-in-up" id="heroTitle">
-                Hi, I'm <span class="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">Sreenath</span>
-            </h1>
-            <div class="text-xl md:text-2xl text-gray-300 typewriter mb-6 md:mb-8 fade-in-up" id="heroSubtitle">
-                AI Developer & Machine Learning Engineer
+                <p class="text-gray-400 text-lg max-w-2xl leading-relaxed border-l-2 border-indigo-500/30 pl-6">
+                    Motivated AI & Machine Learning Engineer skilled in Python, TensorFlow, and PyTorch. 
+                    I build scalable, intelligent solutions that drive innovation through Deep Learning, NLP, and MLOps.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                    <a href="#projects" class="px-8 py-4 bg-white text-black font-bold rounded-lg hover:bg-gray-200 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.3)] text-center">
+                        View Projects
+                    </a>
+                    <a href="#contact" class="px-8 py-4 glass text-white font-semibold rounded-lg hover:bg-white/10 transition-colors border border-white/20 text-center flex items-center justify-center gap-2">
+                        <span>Let's Talk</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                </div>
+
+                <!-- Social Proof / Quick Links -->
+                <div class="flex gap-6 text-sm text-gray-500 font-medium pt-4">
+                    <a href="https://github.com/sreenat200" target="_blank" class="hover:text-white transition-colors flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        GitHub
+                    </a>
+                    <a href="http://www.linkedin.com/in/sreenath-n-44a545256" target="_blank" class="hover:text-white transition-colors flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        LinkedIn
+                    </a>
+                </div>
             </div>
-            <p class="text-base md:text-lg text-gray-400 max-w-2xl mx-auto mb-8 fade-in-up">
-                Motivated and detail-oriented AI & Machine Learning Engineer skilled in Python, TensorFlow, PyTorch, and model deployment, seeking to leverage expertise in deep learning, NLP, and MLOps to build scalable, intelligent solutions that drive innovation.
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 fade-in-up">
-                <a href="#projects" class="px-6 py-3 md:px-8 md:py-4 bg-white text-black rounded-full hover:bg-gray-200 transition-all transform hover:scale-105 hover:shadow-xl font-semibold btn-animate w-full sm:w-auto">
-                    View Projects
-                </a>
-                <a href="#contact" class="px-6 py-3 md:px-8 md:py-4 border-2 border-white rounded-full hover:bg-white hover:text-black transition-all transform hover:scale-105 font-semibold btn-animate w-full sm:w-auto">
-                    Contact Me
-                </a>
+
+            <!-- Hero Visual / Interactive Element placeholder -->
+            <div class="relative h-[400px] lg:h-[600px] w-full order-1 lg:order-2 flex items-center justify-center">
+                <!-- Animated decorative rings -->
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-[300px] h-[300px] border border-indigo-500/20 rounded-full animate-[spin_10s_linear_infinite]"></div>
+                    <div class="absolute w-[450px] h-[450px] border border-purple-500/10 rounded-full animate-[spin_15s_linear_infinite_reverse]"></div>
+                    <div class="absolute w-[600px] h-[600px] border border-white/5 rounded-full animate-[spin_20s_linear_infinite]"></div>
+                </div>
+                
+                <!-- Central Badge -->
+                <div class="glass p-8 rounded-2xl shadow-2xl relative z-10 text-center animate-float">
+                    <div class="w-24 h-24 bg-gradient-to-tr from-indigo-500 to-purple-600 rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg shadow-indigo-500/40">
+                        <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-tech font-bold">AI Engineer</h3>
+                    <p class="text-sm text-gray-400 mt-2">Building the Future</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-16 md:py-20 px-4">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 md:mb-16 fade-in-up">About Me</h2>
-            <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-                <div class="fade-in-up">
-                    <h3 class="text-xl md:text-2xl font-semibold mb-4 md:mb-6">AI & Machine Learning Developer</h3>
-                    <p class="text-gray-300 mb-4 md:mb-6 leading-relaxed">
-                        I'm a passionate AI and Deep Learning developer with expertise in Python programming, 
-                        data preprocessing, and building machine learning models. Currently pursuing advanced 
-                        techniques in AI through hands-on projects and real-world applications.
+    <section id="about" class="py-24 bg-dark-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in-section">
+                <h2 class="text-indigo-400 font-semibold tracking-wide uppercase text-sm">About Me</h2>
+                <h3 class="text-4xl font-tech font-bold mt-2 text-gradient">Passionate about Intelligent Systems</h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                <div class="md:col-span-2 space-y-6 fade-in-section">
+                    <p class="text-lg text-gray-300 leading-relaxed">
+                        I am a motivated and detail-oriented <strong>AI & Machine Learning Engineer</strong> with a strong foundation in Computer Science. 
+                        My journey began with a BSc in Computer Science, followed by intensive training in Python, Data Science, and Deep Learning.
                     </p>
-                    <p class="text-gray-300 mb-4 md:mb-6 leading-relaxed">
-                        With a strong foundation in Computer Science and specialized training in AI/ML/DL, 
-                        I focus on creating intelligent solutions using frameworks like TensorFlow, Keras, 
-                        and PyTorch. I have practical experience applying supervised and unsupervised learning 
-                        to real-world problems, increasing efficiency of data-driven predictions by 20%.
+                    <p class="text-gray-400 leading-relaxed">
+                        Currently, I am expanding my expertise through internships where I work on real-world applications in security, predictive modeling, and automation. 
+                        I specialize in transforming complex data into scalable, intelligent solutions using Python, TensorFlow, and PyTorch.
                     </p>
-                    <div class="space-y-3">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-2 h-2 bg-white rounded-full"></div>
-                            <span>BSc Computer Science Graduate</span>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-indigo-500/10 flex items-center justify-center text-indigo-400">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white">MLOps & Deployment</h4>
+                                <p class="text-xs text-gray-500">Flask, Streamlit, Docker</p>
+                            </div>
                         </div>
-                        <div class="flex items-center space-x-3">
-                            <div class="w-2 h-2 bg-white rounded-full"></div>
-                            <span>AI/ML/DL Certified Professional</span>
-                        </div>
-                        <div class="flex items-center space-x-3">
-                            <div class="w-2 h-2 bg-white rounded-full"></div>
-                            <span>Currently Interning in AI & Deep Learning</span>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-400">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white">Deep Learning</h4>
+                                <p class="text-xs text-gray-500">CNNs, RNNs, Transfer Learning</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="fade-in-up glassmorphism p-6 md:p-8 rounded-2xl">
-                    <h4 class="text-lg md:text-xl font-semibold mb-4 md:mb-6">Quick Facts</h4>
-                    <div class="space-y-3 md:space-y-4">
-                        <div class="flex justify-between">
-                            <span class="text-gray-300">Location</span>
-                            <span>Alappuzha, Kerala</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-300">Experience</span>
-                            <span>2+ Years</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-300">Specialization</span>
-                            <span>AI & Deep Learning</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-300">Languages</span>
-                            <span>English, Malayalam, Tamil</span>
-                        </div>
+                
+                <!-- Quick Stats Card -->
+                <div class="glass-card p-8 rounded-2xl fade-in-section">
+                    <h4 class="text-xl font-bold mb-6 border-b border-white/10 pb-4">Quick Facts</h4>
+                    <ul class="space-y-4">
+                        <li class="flex justify-between items-center">
+                            <span class="text-gray-400">Location</span>
+                            <span class="font-medium">Alappuzha, Kerala</span>
+                        </li>
+                        <li class="flex justify-between items-center">
+                            <span class="text-gray-400">Education</span>
+                            <span class="font-medium">BSc Computer Science</span>
+                        </li>
+                        <li class="flex justify-between items-center">
+                            <span class="text-gray-400">Experience</span>
+                            <span class="font-medium">2+ Years</span>
+                        </li>
+                        <li class="flex justify-between items-center">
+                            <span class="text-gray-400">Email</span>
+                            <a href="mailto:sreenathnagesh0@gmail.com" class="text-indigo-400 hover:text-indigo-300 text-sm">sreenathnagesh0@gmail.com</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-24 relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in-section">
+                <h2 class="text-indigo-400 font-semibold tracking-wide uppercase text-sm">My Journey</h2>
+                <h3 class="text-4xl font-tech font-bold mt-2 text-gradient">Experience & Education</h3>
+            </div>
+
+            <div class="relative timeline-line space-y-12">
+                
+                <!-- Item 1: Internship -->
+                <div class="relative z-10 flex flex-col md:flex-row justify-between items-center group fade-in-section">
+                    <div class="md:w-[45%] order-2 md:order-1 text-center md:text-right pr-0 md:pr-8">
+                        <h4 class="text-xl font-bold text-white">AI-Intern (ML & DL)</h4>
+                        <p class="text-indigo-400 font-medium">Tinos Software and Security Solutions</p>
+                        <span class="text-xs text-gray-500 font-mono mt-1 block">Feb 2025 - Sept 2025</span>
+                    </div>
+                    <div class="w-10 h-10 rounded-full bg-dark-900 border-4 border-indigo-500 flex items-center justify-center z-20 order-1 md:order-2 shadow-[0_0_15px_rgba(99,102,241,0.5)]">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    </div>
+                    <div class="md:w-[45%] order-3 pl-0 md:pl-8 glass p-6 rounded-xl border-l-4 border-l-indigo-500">
+                        <ul class="list-disc list-inside text-gray-400 text-sm space-y-2">
+                            <li>Working on AI, ML, and DL applications in software and security domains.</li>
+                            <li>Involved in model training, evaluation, and deployment using advanced architectures.</li>
+                            <li>Collaborating with cross-functional team to integrate AI models into secure software solutions, enhancing automation.</li>
+                        </ul>
                     </div>
                 </div>
+
+                <!-- Item 2: Data Science Intern -->
+                <div class="relative z-10 flex flex-col md:flex-row justify-between items-center group fade-in-section">
+                    <div class="md:w-[45%] order-2 md:order-1 pl-0 md:pl-8 glass p-6 rounded-xl border-l-4 border-l-purple-500 text-left">
+                        <ul class="list-disc list-inside text-gray-400 text-sm space-y-2">
+                            <li>Conducted exploratory data analysis and built predictive models for real-world business problems.</li>
+                            <li>Cleaned and transformed datasets using Python, and created visualizations to communicate insights.</li>
+                            <li>Collaborated with teams to integrate data-driven solutions and presented findings to stakeholders.</li>
+                        </ul>
+                    </div>
+                    <div class="w-10 h-10 rounded-full bg-dark-900 border-4 border-purple-500 flex items-center justify-center z-20 order-1 md:order-2 shadow-[0_0_15px_rgba(168,85,247,0.5)]">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    </div>
+                    <div class="md:w-[45%] order-3 md:order-3 text-center md:text-left pl-0 md:pl-8">
+                        <h4 class="text-xl font-bold text-white">Data Science Intern</h4>
+                        <p class="text-purple-400 font-medium">Rp2 (Rounded professional program), Infopark Ernakulam</p>
+                        <span class="text-xs text-gray-500 font-mono mt-1 block">Nov 2025 (present)</span> <!-- Note: Resume says Nov 2025 present which seems future dated, keeping as provided -->
+                    </div>
+                </div>
+
+                <!-- Item 3: Education -->
+                <div class="relative z-10 flex flex-col md:flex-row justify-between items-center group fade-in-section">
+                    <div class="md:w-[45%] order-2 md:order-1 text-center md:text-right pr-0 md:pr-8">
+                        <h4 class="text-xl font-bold text-white">BSc Computer Science</h4>
+                        <p class="text-indigo-400 font-medium">University of Kerala</p>
+                        <p class="text-gray-400 text-sm">Naipunya School of Management</p>
+                        <span class="text-xs text-gray-500 font-mono mt-1 block">2017 - 2020</span>
+                    </div>
+                    <div class="w-10 h-10 rounded-full bg-dark-900 border-4 border-gray-500 flex items-center justify-center z-20 order-1 md:order-2">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path></svg>
+                    </div>
+                    <div class="md:w-[45%] order-3 pl-0 md:pl-8 glass p-6 rounded-xl border-l-4 border-l-gray-500">
+                         <p class="text-sm text-gray-300 mb-2 font-semibold">Relevant Coursework:</p>
+                         <div class="flex flex-wrap gap-2">
+                             <span class="text-xs bg-white/5 px-2 py-1 rounded text-gray-400">Software Engineering</span>
+                             <span class="text-xs bg-white/5 px-2 py-1 rounded text-gray-400">Data Structures</span>
+                             <span class="text-xs bg-white/5 px-2 py-1 rounded text-gray-400">Database Systems</span>
+                             <span class="text-xs bg-white/5 px-2 py-1 rounded text-gray-400">Network Security</span>
+                         </div>
+                    </div>
+                </div>
+
+                <!-- Item 4: Certification -->
+                <div class="relative z-10 flex flex-col md:flex-row justify-between items-center group fade-in-section">
+                    <div class="md:w-[45%] order-2 md:order-1 pl-0 md:pl-8 glass p-6 rounded-xl border-l-4 border-l-green-500 text-left">
+                        <ul class="list-disc list-inside text-gray-400 text-sm space-y-2">
+                            <li>Gained practical experience in Python programming, data preprocessing, and building ML/DL models.</li>
+                            <li>Applied supervised and unsupervised learning to real-world problems, increasing efficiency.</li>
+                        </ul>
+                    </div>
+                    <div class="w-10 h-10 rounded-full bg-dark-900 border-4 border-green-500 flex items-center justify-center z-20 order-1 md:order-2 shadow-[0_0_15px_rgba(34,197,94,0.5)]">
+                         <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+                    </div>
+                    <div class="md:w-[45%] order-3 md:order-3 text-center md:text-left pl-0 md:pl-8">
+                        <h4 class="text-xl font-bold text-white">Python Core AI</h4>
+                        <p class="text-green-400 font-medium">Techmindz, Infopark Ernakulam</p>
+                        <span class="text-xs text-gray-500 font-mono mt-1 block">Certification</span>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-16 md:py-20 px-4 bg-gray-900 bg-opacity-20">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 md:mb-16 fade-in-up">Featured Projects</h2>
-            <div class="grid md:grid-cols-2 gap-6 md:gap-8">
+    <section id="projects" class="py-24 bg-dark-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in-section">
+                <h2 class="text-indigo-400 font-semibold tracking-wide uppercase text-sm">Portfolio</h2>
+                <h3 class="text-4xl font-tech font-bold mt-2 text-gradient">Featured Projects</h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
                 <!-- Project 1 -->
-                <div class="glassmorphism rounded-2xl p-6 card-hover transition-all duration-300 fade-in-up">
-                    <h3 class="text-lg md:text-xl font-semibold mb-4">Emotion Detection App</h3>
-                    <p class="text-gray-300 mb-6">
-                        Real-time facial emotion recognition using TensorFlow and Keras CNNs on the FER-2013 dataset 
-                        with OpenCV preprocessing. Achieved 85% accuracy and deployed as a Streamlit application.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">TensorFlow</span>
-                        <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">Keras</span>
-                        <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">OpenCV</span>
-                        <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">Streamlit</span>
+                <div class="glass-card rounded-xl overflow-hidden flex flex-col h-full fade-in-section group">
+                    <div class="h-48 bg-gradient-to-br from-indigo-900 to-purple-900 relative p-6 flex items-end">
+                        <div class="absolute top-4 right-4 bg-black/30 backdrop-blur px-3 py-1 rounded text-xs font-mono">Computer Vision</div>
+                        <h4 class="text-2xl font-bold text-white z-10">Emotion Detection</h4>
+                        <!-- Abstract visual -->
+                        <div class="absolute inset-0 opacity-20">
+                             <svg width="100%" height="100%">
+                                 <circle cx="20%" cy="20%" r="15" fill="#fff" opacity="0.5">
+                                    <animate attributeName="r" values="15;25;15" dur="4s" repeatCount="indefinite"/>
+                                 </circle>
+                             </svg>
+                        </div>
                     </div>
-                    <a href="https://emotiondetections.streamlit.app/" target="_blank" 
-                       class="inline-flex items-center text-white hover:text-gray-300 transition-colors btn-animate">
-                        Live Demo →
-                    </a>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <p class="text-gray-400 text-sm mb-4 flex-grow">
+                            Real-time facial emotion recognition using TensorFlow (CNNs) with 85% accuracy on FER-2013 dataset. Deployed in Streamlit.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2 py-1 bg-indigo-500/20 text-indigo-300 text-xs rounded border border-indigo-500/20">TensorFlow</span>
+                            <span class="px-2 py-1 bg-indigo-500/20 text-indigo-300 text-xs rounded border border-indigo-500/20">OpenCV</span>
+                            <span class="px-2 py-1 bg-indigo-500/20 text-indigo-300 text-xs rounded border border-indigo-500/20">Streamlit</span>
+                        </div>
+                        <a href="#" class="inline-flex items-center justify-center w-full py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm font-medium transition-colors">
+                            Live Demo
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Project 2 -->
-                <div class="glassmorphism rounded-2xl p-6 card-hover transition-all duration-300 fade-in-up">
-                    <h3 class="text-lg md:text-xl font-semibold mb-4">Loan Approval Predictor</h3>
-                    <p class="text-gray-300 mb-6">
-                        Streamlit app predicting loan approvals using scikit-learn's logistic regression 
-                        and random forests with advanced data preprocessing and handling of imbalanced classes.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">Scikit-learn</span>
-                        <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">Pandas</span>
-                        <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">NumPy</span>
-                        <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">Streamlit</span>
+                <div class="glass-card rounded-xl overflow-hidden flex flex-col h-full fade-in-section group">
+                    <div class="h-48 bg-gradient-to-br from-blue-900 to-cyan-900 relative p-6 flex items-end">
+                        <div class="absolute top-4 right-4 bg-black/30 backdrop-blur px-3 py-1 rounded text-xs font-mono">Healthcare AI</div>
+                        <h4 class="text-2xl font-bold text-white z-10">Diabetic Retinopathy</h4>
                     </div>
-                    <a href="https://loanapprovalpredictionss.streamlit.app/" target="_blank" 
-                       class="inline-flex items-center text-white hover:text-gray-300 transition-colors btn-animate">
-                        Live Demo →
-                    </a>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <p class="text-gray-400 text-sm mb-4 flex-grow">
+                            Detection system using EfficientNet-B4 deep learning model to analyze retinal images. Integrated into a Flask web app for early screening.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2 py-1 bg-blue-500/20 text-blue-300 text-xs rounded border border-blue-500/20">EfficientNet-B4</span>
+                            <span class="px-2 py-1 bg-blue-500/20 text-blue-300 text-xs rounded border border-blue-500/20">Flask</span>
+                            <span class="px-2 py-1 bg-blue-500/20 text-blue-300 text-xs rounded border border-blue-500/20">Transfer Learning</span>
+                        </div>
+                        <a href="#" class="inline-flex items-center justify-center w-full py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm font-medium transition-colors">
+                            View Details
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Project 3 -->
-                <div class="glassmorphism rounded-2xl p-6 card-hover transition-all duration-300 fade-in-up">
-                    <h3 class="text-lg md:text-xl font-semibold mb-4">Diabetes Risk Predictor</h3>
-                    <p class="text-gray-300 mb-6">
-                        Streamlit tool predicting diabetes risk using decision trees and XGBoost 
-                        with comprehensive data analysis and visualization of the PIMA dataset.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">XGBoost</span>
-                        <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">Seaborn</span>
-                        <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">Pandas</span>
-                        <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">Decision Trees</span>
+                <div class="glass-card rounded-xl overflow-hidden flex flex-col h-full fade-in-section group">
+                    <div class="h-48 bg-gradient-to-br from-red-900 to-orange-900 relative p-6 flex items-end">
+                         <div class="absolute top-4 right-4 bg-black/30 backdrop-blur px-3 py-1 rounded text-xs font-mono">Predictive Model</div>
+                        <h4 class="text-2xl font-bold text-white z-10">Diabetes Risk Predictor</h4>
                     </div>
-                    <a href="https://diabeticpredictionsss.streamlit.app/" target="_blank" 
-                       class="inline-flex items-center text-white hover:text-gray-300 transition-colors btn-animate">
-                        Live Demo →
-                    </a>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <p class="text-gray-400 text-sm mb-4 flex-grow">
+                            Streamlit tool to predict diabetes risk using decision trees and XGBoost on the PIMA dataset with correlation analysis.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2 py-1 bg-red-500/20 text-red-300 text-xs rounded border border-red-500/20">XGBoost</span>
+                            <span class="px-2 py-1 bg-red-500/20 text-red-300 text-xs rounded border border-red-500/20">Pandas</span>
+                            <span class="px-2 py-1 bg-red-500/20 text-red-300 text-xs rounded border border-red-500/20">Seaborn</span>
+                        </div>
+                        <a href="#" class="inline-flex items-center justify-center w-full py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm font-medium transition-colors">
+                            Live Demo
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Project 4 -->
-                <div class="glassmorphism rounded-2xl p-6 card-hover transition-all duration-300 fade-in-up">
-                    <h3 class="text-lg md:text-xl font-semibold mb-4">Lead Conversion Predictor</h3>
-                    <p class="text-gray-300 mb-6">
-                        Advanced lead scoring system using gradient boosting and PyTorch 
-                        for CRM optimization with conversion probability analysis.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">PyTorch</span>
-                        <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">Gradient Boosting</span>
-                        <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">Pandas</span>
-                        <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">NumPy</span>
+                <div class="glass-card rounded-xl overflow-hidden flex flex-col h-full fade-in-section group">
+                    <div class="h-48 bg-gradient-to-br from-green-900 to-emerald-900 relative p-6 flex items-end">
+                         <div class="absolute top-4 right-4 bg-black/30 backdrop-blur px-3 py-1 rounded text-xs font-mono">Business Intelligence</div>
+                        <h4 class="text-2xl font-bold text-white z-10">Lead Conversion Predictor</h4>
                     </div>
-                    <a href="https://leadscoreconversion.streamlit.app/" target="_blank" 
-                       class="inline-flex items-center text-white hover:text-gray-300 transition-colors btn-animate">
-                        Live Demo →
-                    </a>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <p class="text-gray-400 text-sm mb-4 flex-grow">
+                            Streamlit app to score and predict lead conversions using gradient boosting and PyTorch for CRM optimization.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2 py-1 bg-green-500/20 text-green-300 text-xs rounded border border-green-500/20">PyTorch</span>
+                            <span class="px-2 py-1 bg-green-500/20 text-green-300 text-xs rounded border border-green-500/20">NumPy</span>
+                            <span class="px-2 py-1 bg-green-500/20 text-green-300 text-xs rounded border border-green-500/20">CRM</span>
+                        </div>
+                        <a href="#" class="inline-flex items-center justify-center w-full py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm font-medium transition-colors">
+                            Live Demo
+                        </a>
+                    </div>
                 </div>
 
-                <!-- Project 5 (New) -->
-                <div class="glassmorphism rounded-2xl p-6 card-hover transition-all duration-300 fade-in-up md:col-span-2">
-                    <h3 class="text-lg md:text-xl font-semibold mb-4">Online Proctoring Exam Platform</h3>
-                    <p class="text-gray-300 mb-6">
-                        Flask-based AI-driven proctoring system enabling 95% detection accuracy for unauthorized behavior during online exams. Implemented mobile detection, face recognition, background noise analysis, object detection, and browser monitoring to ensure real-time, AI-based automated exam supervision and data-driven security insights.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">Flask</span>
-                        <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">Python</span>
-                        <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">SQL</span>
-                        <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">HTML/CSS/JS</span>
-                        <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">Computer Vision</span>
+                <!-- Project 5 (Big Card) -->
+                <div class="glass-card rounded-xl overflow-hidden flex flex-col h-full md:col-span-2 lg:col-span-2 fade-in-section group border border-indigo-500/30">
+                    <div class="h-56 bg-gradient-to-r from-gray-900 to-slate-900 relative p-8 flex items-center border-b border-white/5">
+                        <div class="absolute top-6 right-6 flex gap-2">
+                            <span class="bg-indigo-600 text-white px-3 py-1 rounded text-xs font-bold tracking-wide">FEATURED</span>
+                            <span class="bg-black/50 backdrop-blur px-3 py-1 rounded text-xs font-mono border border-white/10">AI Security</span>
+                        </div>
+                        <div class="max-w-2xl">
+                            <h4 class="text-3xl font-bold text-white mb-2">Math Brain: Online Proctoring System</h4>
+                            <p class="text-gray-400 text-sm">AI-driven automated exam supervision with 95% detection accuracy.</p>
+                        </div>
                     </div>
-                    <div class="flex items-center space-x-4">
-                        <a href="#" target="_blank" 
-                           class="inline-flex items-center text-white hover:text-gray-300 transition-colors btn-animate">
-                            View Project →
-                        </a>
-                        <span class="text-gray-400 text-sm">*Private repository - available upon request</span>
+                    <div class="p-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div>
+                                <h5 class="text-lg font-bold text-white mb-3">Key Features</h5>
+                                <ul class="space-y-2 text-sm text-gray-400">
+                                    <li class="flex items-center gap-2">
+                                        <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        Mobile Detection
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        Face Recognition & Background Analysis
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        Object Detection & Browser Monitoring
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        Unauthorized Behavior Detection
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h5 class="text-lg font-bold text-white mb-3">Tech Stack</h5>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-xs text-gray-300">Flask</span>
+                                    <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-xs text-gray-300">Python</span>
+                                    <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-xs text-gray-300">SQL</span>
+                                    <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-xs text-gray-300">HTML/CSS/JS</span>
+                                    <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-xs text-gray-300">Computer Vision</span>
+                                </div>
+                                <div class="mt-6">
+                                    <a href="#" class="inline-flex items-center text-indigo-400 hover:text-indigo-300 text-sm font-medium">
+                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                                        Private Repository (Request Access)
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="py-16 md:py-20 px-4">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 md:mb-16 fade-in-up">Skills & Expertise</h2>
-            <div class="grid md:grid-cols-2 gap-8 md:gap-12">
-                <!-- Technical Skills -->
-                <div class="fade-in-up">
-                    <h3 class="text-xl md:text-2xl font-semibold mb-6 md:mb-8">Technical Skills</h3>
-                    <div class="space-y-6">
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span>Python</span>
-                                <span>90%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-fill" style="width: 90%; animation-delay: 0.5s;"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span>TensorFlow & Keras</span>
-                                <span>85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-fill" style="width: 85%; animation-delay: 0.7s;"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span>PyTorch</span>
-                                <span>80%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-fill" style="width: 80%; animation-delay: 0.9s;"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span>Scikit-learn</span>
-                                <span>88%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-fill" style="width: 88%; animation-delay: 1.1s;"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span>Pandas</span>
-                                <span>92%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-fill" style="width: 92%; animation-delay: 1.3s;"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span>NumPy</span>
-                                <span>90%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-fill" style="width: 90%; animation-delay: 1.5s;"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span>Matplotlib</span>
-                                <span>85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-fill" style="width: 85%; animation-delay: 1.7s;"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span>Streamlit</span>
-                                <span>88%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-fill" style="width: 88%; animation-delay: 1.9s;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <section id="skills" class="py-24 relative overflow-hidden">
+        <!-- Decorative glow -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[100px] -z-10"></div>
 
-                <!-- Additional Technical Skills -->
-                <div class="fade-in-up">
-                    <h3 class="text-xl md:text-2xl font-semibold mb-6 md:mb-8">Additional Expertise</h3>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in-section">
+                <h2 class="text-indigo-400 font-semibold tracking-wide uppercase text-sm">Expertise</h2>
+                <h3 class="text-4xl font-tech font-bold mt-2 text-gradient">Skills & Technologies</h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Left: Progress Bars -->
+                <div class="space-y-8 fade-in-section">
+                    <h4 class="text-xl font-bold text-white mb-6 border-l-4 border-indigo-500 pl-4">Core Technical Skills</h4>
+                    
                     <div class="space-y-4">
-                        <div class="glassmorphism p-4 rounded-lg">
-                            <h4 class="font-semibold mb-2">Programming & Frameworks</h4>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">Flask</span>
-                                <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">Gen AI</span>
-                                <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">Prompting</span>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-gray-300">Python</span>
+                                <span class="text-sm font-medium text-indigo-400">90%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="skill-progress bg-gradient-to-r from-indigo-500 to-purple-500 h-2 rounded-full" data-width="90%"></div>
                             </div>
                         </div>
-                        <div class="glassmorphism p-4 rounded-lg">
-                            <h4 class="font-semibold mb-2">Machine Learning & AI</h4>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">Deep Learning</span>
-                                <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">Model Deployment</span>
-                                <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">Computer Vision</span>
-                                <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">NLP</span>
-                                <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">Data Analysis</span>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-gray-300">TensorFlow & Keras</span>
+                                <span class="text-sm font-medium text-indigo-400">85%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="skill-progress bg-gradient-to-r from-indigo-500 to-purple-500 h-2 rounded-full" data-width="85%"></div>
                             </div>
                         </div>
-                        <div class="glassmorphism p-4 rounded-lg">
-                            <h4 class="font-semibold mb-2">Tools & Libraries</h4>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">OpenCV</span>
-                                <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">Hugging Face</span>
-                                <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">Seaborn</span>
+
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-gray-300">PyTorch</span>
+                                <span class="text-sm font-medium text-indigo-400">80%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="skill-progress bg-gradient-to-r from-indigo-500 to-purple-500 h-2 rounded-full" data-width="80%"></div>
                             </div>
                         </div>
-                        <div class="glassmorphism p-4 rounded-lg">
-                            <h4 class="font-semibold mb-2">Database & Cloud</h4>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">SQL</span>
-                                <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">AWS</span>
-                                <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">Cloud Computing</span>
-                                <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">REST API</span>
-                                <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">Docker</span>
+
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-gray-300">Data Science (Pandas/NumPy)</span>
+                                <span class="text-sm font-medium text-indigo-400">92%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="skill-progress bg-gradient-to-r from-indigo-500 to-purple-500 h-2 rounded-full" data-width="92%"></div>
                             </div>
                         </div>
-                        <div class="glassmorphism p-4 rounded-lg">
-                            <h4 class="font-semibold mb-2">Version Control & DevOps</h4>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">Git</span>
-                                <span class="px-3 py-1 bg-white bg-opacity-10 rounded-full text-sm">GitHub</span>
+
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-gray-300">Computer Vision (OpenCV)</span>
+                                <span class="text-sm font-medium text-indigo-400">85%</span>
                             </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="skill-progress bg-gradient-to-r from-indigo-500 to-purple-500 h-2 rounded-full" data-width="85%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-8 border-t border-white/10">
+                        <h4 class="text-lg font-bold text-white mb-4">Soft Skills</h4>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="glass px-4 py-2 rounded text-center text-sm text-gray-300">Problem-Solving</div>
+                            <div class="glass px-4 py-2 rounded text-center text-sm text-gray-300">Teamwork</div>
+                            <div class="glass px-4 py-2 rounded text-center text-sm text-gray-300">Analytical Thinking</div>
+                            <div class="glass px-4 py-2 rounded text-center text-sm text-gray-300">Communication</div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Soft Skills -->
-            <div class="mt-12 fade-in-up">
-                <h3 class="text-xl md:text-2xl font-semibold mb-6 md:mb-8 text-center">Soft Skills</h3>
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    <div class="glassmorphism p-4 rounded-lg text-center">
-                        <div class="text-3xl mb-2">🎯</div>
-                        <div class="font-semibold">Problem-Solving</div>
-                    </div>
-                    <div class="glassmorphism p-4 rounded-lg text-center">
-                        <div class="text-3xl mb-2">🧠</div>
-                        <div class="font-semibold">Analytical Thinking</div>
-                    </div>
-                    <div class="glassmorphism p-4 rounded-lg text-center">
-                        <div class="text-3xl mb-2">👥</div>
-                        <div class="font-semibold">Collaboration & Teamwork</div>
-                    </div>
-                    <div class="glassmorphism p-4 rounded-lg text-center">
-                        <div class="text-3xl mb-2">🔄</div>
-                        <div class="font-semibold">Adaptability</div>
-                    </div>
-                    <div class="glassmorphism p-4 rounded-lg text-center">
-                        <div class="text-3xl mb-2">⏰</div>
-                        <div class="font-semibold">Time Management</div>
-                    </div>
-                    <div class="glassmorphism p-4 rounded-lg text-center">
-                        <div class="text-3xl mb-2">💬</div>
-                        <div class="font-semibold">Communication</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Experience & Education Section -->
-    <section id="experience" class="py-16 md:py-20 px-4 bg-gray-900 bg-opacity-20">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 md:mb-16 fade-in-up">Experience & Education</h2>
-            <div class="relative">
-                <!-- Timeline Line -->
-                <div class="absolute left-8 top-0 bottom-0 w-0.5 timeline-line md:left-8"></div>
-                
-                <!-- Timeline Items -->
-                <div class="space-y-12">
-                    <!-- Current Internship -->
-                    <div class="relative flex items-start fade-in-up timeline-item">
-                        <div class="absolute left-6 w-4 h-4 bg-white rounded-full border-4 border-black timeline-dot"></div>
-                        <div class="ml-20 md:ml-20 glassmorphism p-6 rounded-lg">
-                            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                                <h3 class="text-lg md:text-xl font-semibold">AI, ML & Deep Learning Intern</h3>
-                                <span class="text-sm text-gray-400">Feb 2025 - Present</span>
-                            </div>
-                            <p class="text-gray-300 mb-2">Tinos Software and Security Solutions</p>
-                            <ul class="text-gray-400 list-disc list-inside space-y-1">
-                                <li>Working on AI, ML, and DL applications in software and security domains</li>
-                                <li>Involved in model training, evaluation, and deployment using advanced architectures</li>
-                                <li>Applying CNNs, RNNs, and transfer learning for predictive analytics and automation</li>
-                                <li>Collaborating with cross-functional team to integrate AI models into secure software solutions</li>
-                            </ul>
+                <!-- Right: Categories/Bubbles -->
+                <div class="space-y-6 fade-in-section">
+                    <div class="glass p-6 rounded-xl">
+                        <h4 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                            Frameworks & Tools
+                        </h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1.5 bg-gray-800 text-gray-300 text-sm rounded border border-gray-700 hover:border-indigo-500 transition-colors">Scikit-learn</span>
+                            <span class="px-3 py-1.5 bg-gray-800 text-gray-300 text-sm rounded border border-gray-700 hover:border-indigo-500 transition-colors">Flask</span>
+                            <span class="px-3 py-1.5 bg-gray-800 text-gray-300 text-sm rounded border border-gray-700 hover:border-indigo-500 transition-colors">Streamlit</span>
+                            <span class="px-3 py-1.5 bg-gray-800 text-gray-300 text-sm rounded border border-gray-700 hover:border-indigo-500 transition-colors">Docker</span>
+                            <span class="px-3 py-1.5 bg-gray-800 text-gray-300 text-sm rounded border border-gray-700 hover:border-indigo-500 transition-colors">Git</span>
+                            <span class="px-3 py-1.5 bg-gray-800 text-gray-300 text-sm rounded border border-gray-700 hover:border-indigo-500 transition-colors">Hugging Face</span>
                         </div>
                     </div>
 
-                    <!-- Previous Work -->
-                    <div class="relative flex items-start fade-in-up timeline-item">
-                        <div class="absolute left-6 w-4 h-4 bg-gray-400 rounded-full border-4 border-black timeline-dot"></div>
-                        <div class="ml-20 md:ml-20 glassmorphism p-6 rounded-lg">
-                            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                                <h3 class="text-lg md:text-xl font-semibold">Clerk</h3>
-                                <span class="text-sm text-gray-400">Apr 2020 - Mar 2022</span>
-                            </div>
-                            <p class="text-gray-300 mb-2">Devi Phosphates, Alappuzha</p>
-                            <ul class="text-gray-400 list-disc list-inside space-y-1">
-                                <li>Performed various administrative tasks including filing, data entry, invoicing, and customer support</li>
-                                <li>Assisted the production team with inventory management and quality control operations</li>
-                                <li>Worked in a dynamic, fast-paced environment, developing strong organizational and communication skills</li>
-                                <li>Contributed to improving workflow efficiency and supporting overall company objectives</li>
-                            </ul>
+                    <div class="glass p-6 rounded-xl">
+                        <h4 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                            Cloud & Database
+                        </h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1.5 bg-gray-800 text-gray-300 text-sm rounded border border-gray-700 hover:border-indigo-500 transition-colors">AWS</span>
+                            <span class="px-3 py-1.5 bg-gray-800 text-gray-300 text-sm rounded border border-gray-700 hover:border-indigo-500 transition-colors">SQL</span>
+                            <span class="px-3 py-1.5 bg-gray-800 text-gray-300 text-sm rounded border border-gray-700 hover:border-indigo-500 transition-colors">REST API</span>
                         </div>
                     </div>
 
-                    <!-- Education -->
-                    <div class="relative flex items-start fade-in-up timeline-item">
-                        <div class="absolute left-6 w-4 h-4 bg-gray-400 rounded-full border-4 border-black timeline-dot"></div>
-                        <div class="ml-20 md:ml-20 glassmorphism p-6 rounded-lg">
-                            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                                <h3 class="text-lg md:text-xl font-semibold">BSc Computer Science</h3>
-                                <span class="text-sm text-gray-400">July 2017 - Mar 2020</span>
-                            </div>
-                            <p class="text-gray-300 mb-2">Naipunya School of Management, Cherthala</p>
-                            <p class="text-gray-400 mb-2">University of Kerala</p>
-                            <p class="text-gray-400 mb-2">Relevant Coursework:</p>
-                            <ul class="text-gray-400 list-disc list-inside space-y-1">
-                                <li>Software Engineering</li>
-                                <li>Data Structures & Algorithms</li>
-                                <li>Database Systems</li>
-                                <li>Software Security</li>
-                                <li>Computer Networks</li>
-                                <li>Web Development</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Certification -->
-                    <div class="relative flex items-start fade-in-up timeline-item">
-                        <div class="absolute left-6 w-4 h-4 bg-white rounded-full border-4 border-black timeline-dot"></div>
-                        <div class="ml-20 md:ml-20 glassmorphism p-6 rounded-lg">
-                            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                                <h3 class="text-lg md:text-xl font-semibold">Python Core AI with ML & DL</h3>
-                                <span class="text-sm text-gray-400">Completed</span>
-                            </div>
-                            <p class="text-gray-300 mb-2">Techmindz, Infopark Ernakulam</p>
-                            <ul class="text-gray-400 list-disc list-inside space-y-1">
-                                <li>Gained practical experience in Python programming, data preprocessing, and building ML/DL models</li>
-                                <li>Applied supervised and unsupervised learning to real-world problems, increasing efficiency of data-driven predictions by 20%</li>
-                                <li>Used TensorFlow and Keras to develop and train neural networks, improving model accuracy by 15%</li>
-                                <li>Completed hands-on projects to strengthen understanding of AI workflows and applications</li>
-                            </ul>
+                    <div class="glass p-6 rounded-xl">
+                        <h4 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            Advanced Concepts
+                        </h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1.5 bg-gray-800 text-gray-300 text-sm rounded border border-gray-700 hover:border-indigo-500 transition-colors">Gen AI</span>
+                            <span class="px-3 py-1.5 bg-gray-800 text-gray-300 text-sm rounded border border-gray-700 hover:border-indigo-500 transition-colors">Prompt Engineering</span>
+                            <span class="px-3 py-1.5 bg-gray-800 text-gray-300 text-sm rounded border border-gray-700 hover:border-indigo-500 transition-colors">NLP</span>
+                            <span class="px-3 py-1.5 bg-gray-800 text-gray-300 text-sm rounded border border-gray-700 hover:border-indigo-500 transition-colors">Model Deployment</span>
                         </div>
                     </div>
                 </div>
@@ -915,325 +722,243 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-16 md:py-20 px-4">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-3xl md:text-4xl font-bold mb-12 md:mb-16 fade-in-up">Let's Connect</h2>
-            
-            <div class="grid md:grid-cols-2 gap-8 md:gap-12">
-                <!-- Contact Info -->
-                <div class="fade-in-up">
-                    <h3 class="text-xl md:text-2xl font-semibold mb-6 md:mb-8">Get In Touch</h3>
-                    <div class="space-y-6 text-left">
-                        <div class="flex items-center space-x-4">
-                            <div class="w-12 h-12 bg-white bg-opacity-10 rounded-full flex items-center justify-center">
-                                <span class="text-xl">📧</span>
-                            </div>
-                            <div>
-                                <div class="font-semibold">Email</div>
-                                <a href="mailto:sreenathnagesh0@gmail.com" class="text-gray-300 hover:text-white transition-colors">
-                                    sreenathnagesh0@gmail.com
-                                </a>
-                            </div>
+    <section id="contact" class="py-24 bg-dark-800/30">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in-section">
+                <h2 class="text-indigo-400 font-semibold tracking-wide uppercase text-sm">Get In Touch</h2>
+                <h3 class="text-4xl font-tech font-bold mt-2 text-gradient">Let's Work Together</h3>
+            </div>
+
+            <div class="glass p-8 md:p-12 rounded-2xl border border-indigo-500/20 shadow-2xl fade-in-section">
+                <form action="https://formspree.io/f/xdkwoopq" method="POST" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-400 mb-2">Name</label>
+                            <input type="text" name="name" id="name" required class="w-full bg-dark-900/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors" placeholder="John Doe">
                         </div>
-                        
-                        <div class="flex items-center space-x-4">
-                            <div class="w-12 h-12 bg-white bg-opacity-10 rounded-full flex items-center justify-center">
-                                <span class="text-xl">💼</span>
-                            </div>
-                            <div>
-                                <div class="font-semibold">LinkedIn</div>
-                                <a href="http://www.linkedin.com/in/sreenath-n-44a545256" target="_blank" 
-                                   class="text-gray-300 hover:text-white transition-colors">
-                                    /in/sreenath-n-44a545256
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-center space-x-4">
-                            <div class="w-12 h-12 bg-white bg-opacity-10 rounded-full flex items-center justify-center">
-                                <span class="text-xl">🐙</span>
-                            </div>
-                            <div>
-                                <div class="font-semibold">GitHub</div>
-                                <a href="https://github.com/sreenat200" target="_blank" 
-                                   class="text-gray-300 hover:text-white transition-colors">
-                                    github.com/sreenat200
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-center space-x-4">
-                            <div class="w-12 h-12 bg-white bg-opacity-10 rounded-full flex items-center justify-center">
-                                <span class="text-xl">🤖</span>
-                            </div>
-                            <div>
-                                <div class="font-semibold">Hugging Face</div>
-                                <a href="#" target="_blank" 
-                                   class="text-gray-300 hover:text-white transition-colors">
-                                    huggingface.co/sreenath
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-center space-x-4">
-                            <div class="w-12 h-12 bg-white bg-opacity-10 rounded-full flex items-center justify-center">
-                                <span class="text-xl">🌐</span>
-                            </div>
-                            <div>
-                                <div class="font-semibold">Portfolio</div>
-                                <a href="#" target="_blank" 
-                                   class="text-gray-300 hover:text-white transition-colors">
-                                    sreenath.dev
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-center space-x-4">
-                            <div class="w-12 h-12 bg-white bg-opacity-10 rounded-full flex items-center justify-center">
-                                <span class="text-xl">📍</span>
-                            </div>
-                            <div>
-                                <div class="font-semibold">Location</div>
-                                <span class="text-gray-300">Alappuzha, Kerala, India</span>
-                            </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-400 mb-2">Email</label>
+                            <input type="email" name="email" id="email" required class="w-full bg-dark-900/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors" placeholder="john@example.com">
                         </div>
                     </div>
-                </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-400 mb-2">Message</label>
+                        <textarea name="message" id="message" rows="5" required class="w-full bg-dark-900/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors" placeholder="Tell me about your project..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-lg shadow-lg shadow-indigo-500/30 transform transition hover:-translate-y-1">
+                        Send Message
+                    </button>
+                </form>
 
-                <!-- Contact Form -->
-                <div class="fade-in-up">
-                    <form action="https://formspree.io/f/xdkwoopq" method="POST" class="glassmorphism p-6 md:p-8 rounded-2xl">
-                        <div class="space-y-6">
-                            <div>
-                                <input 
-                                    type="text" 
-                                    name="name" 
-                                    placeholder="Your Name" 
-                                    class="w-full px-4 py-3 bg-white bg-opacity-10 rounded-lg border border-white border-opacity-20 focus:border-white focus:outline-none transition-colors" 
-                                    required
-                                >
-                            </div>
-                            <div>
-                                <input 
-                                    type="email" 
-                                    name="email" 
-                                    placeholder="Your Email" 
-                                    class="w-full px-4 py-3 bg-white bg-opacity-10 rounded-lg border border-white border-opacity-20 focus:border-white focus:outline-none transition-colors" 
-                                    required
-                                >
-                            </div>
-                            <div>
-                                <textarea 
-                                    name="message" 
-                                    placeholder="Your Message" 
-                                    class="w-full px-4 py-3 bg-white bg-opacity-10 rounded-lg border border-white border-opacity-20 focus:border-white focus:outline-none transition-colors resize-none" 
-                                    rows="5" 
-                                    required
-                                ></textarea>
-                            </div>
-                            <button 
-                                type="submit" 
-                                class="w-full px-4 py-3 bg-white text-black font-semibold rounded-lg hover:bg-gray-200 transition-colors btn-animate"
-                            >
-                                Send Message
-                            </button>
-                        </div>
-                    </form>
+                <div class="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
+                    <p class="text-gray-400 text-sm">Or connect directly via</p>
+                    <div class="flex gap-6">
+                        <a href="mailto:sreenathnagesh0@gmail.com" class="text-gray-300 hover:text-indigo-400 transition-colors text-sm font-medium">Email</a>
+                        <a href="https://www.linkedin.com/in/sreenath-n-44a545256" target="_blank" class="text-gray-300 hover:text-indigo-400 transition-colors text-sm font-medium">LinkedIn</a>
+                        <a href="https://github.com/sreenat200" target="_blank" class="text-gray-300 hover:text-indigo-400 transition-colors text-sm font-medium">GitHub</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Scripts -->
+    <!-- Footer -->
+    <footer class="py-8 text-center border-t border-white/5 text-gray-600 text-sm">
+        <p>&copy; 2025 Sreenath N. All rights reserved.</p>
+    </footer>
+
+    <!-- Interactive Scripts -->
     <script>
-        // Scroll Progress Bar
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.scrollY;
-            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const scrollPercentage = (scrollTop / scrollHeight) * 100;
-            document.getElementById('scrollProgress').style.width = `${scrollPercentage}%`;
+        // --- 1. Canvas Neural Network Background Animation ---
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+        
+        // Configuration
+        const particleCount = 60;
+        const connectionDistance = 150;
+        const mouseDistance = 200;
+
+        // Mouse tracking
+        const mouse = { x: null, y: null };
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+        window.addEventListener('mouseleave', () => {
+            mouse.x = null;
+            mouse.y = null;
         });
 
-        // Mobile Menu Toggle
-        const menuToggle = document.getElementById('menuToggle');
-        const mobileMenu = document.getElementById('mobileMenu');
-        menuToggle.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2 + 1;
+                this.color = `rgba(99, 102, 241, ${Math.random() * 0.5 + 0.2})`; // Indigo base
+            }
 
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('#mobileMenu a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
 
-        // Scroll Animations
+                // Bounce off edges
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+
+                // Mouse interaction
+                if (mouse.x != null) {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < mouseDistance) {
+                        const forceDirectionX = dx / distance;
+                        const forceDirectionY = dy / distance;
+                        const force = (mouseDistance - distance) / mouseDistance;
+                        // Gently push away
+                        const directionX = forceDirectionX * force * 0.5;
+                        const directionY = forceDirectionY * force * 0.5;
+                        this.vx -= directionX;
+                        this.vy -= directionY;
+                    }
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+        }
+
+        function initCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            particles = [];
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
+            
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+
+                // Draw connections
+                for (let j = i; j < particles.length; j++) {
+                    let dx = particles[i].x - particles[j].x;
+                    let dy = particles[i].y - particles[j].y;
+                    let distance = Math.sqrt(dx*dx + dy*dy);
+
+                    if (distance < connectionDistance) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(99, 102, 241, ${1 - distance/connectionDistance})`;
+                        ctx.lineWidth = 1;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateCanvas);
+        }
+
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
+        animateCanvas();
+
+        // --- 2. Typewriter Effect ---
+        const textToType = "AI Developer | Machine Learning Engineer";
+        const typeContainer = document.getElementById('typewriter');
+        let typeIndex = 0;
+
+        function typeWriter() {
+            if (typeIndex < textToType.length) {
+                typeContainer.innerHTML += textToType.charAt(typeIndex);
+                typeIndex++;
+                setTimeout(typeWriter, 50);
+            }
+        }
+        // Start typing after a short delay
+        setTimeout(typeWriter, 1000);
+
+        // --- 3. Scroll Reveal Animations ---
         const observerOptions = {
             root: null,
             rootMargin: '0px',
             threshold: 0.1
         };
 
-        const observer = new IntersectionObserver((entries) => {
+        const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    
+                    // Specific trigger for skill bars
+                    if (entry.target.classList.contains('skill-progress')) {
+                        entry.target.style.width = entry.target.getAttribute('data-width');
+                    }
+                    
+                    observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.fade-in-up').forEach(el => {
+        // Observe Sections
+        document.querySelectorAll('.fade-in-section').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
             observer.observe(el);
         });
 
-        // Button Click Animation
-        document.querySelectorAll('.btn-animate').forEach(button => {
-            button.addEventListener('click', function() {
-                this.classList.add('btn-click');
-                setTimeout(() => {
-                    this.classList.remove('btn-click');
-                }, 300);
+        // Observe Skill Bars specifically (since they are inside observed sections, 
+        // we trigger their width change when the section becomes visible)
+        // We handle this via the section observer or specifically here:
+        document.querySelectorAll('.skill-progress').forEach(bar => {
+             // We rely on the parent's fade-in to trigger, but let's add a specific check
+             // to ensure the bar animation runs smoothly.
+             const skillSection = bar.closest('.fade-in-section');
+             // Create a mutation observer or just use the intersection observer logic above.
+             // The logic above handles it if we set initial width to 0 in CSS.
+        });
+
+        // --- 4. Mobile Menu Toggle ---
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close menu when link is clicked
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
             });
         });
 
-        // Neural Network Animation
-        function createNeuralNetwork() {
-            const container = document.getElementById('neuralNetwork');
-            const neurons = [];
-            const connections = [];
-            
-            // Create neurons
-            for (let layer = 0; layer < 3; layer++) {
-                const neuronsInLayer = layer === 1 ? 4 : 3;
-                for (let i = 0; i < neuronsInLayer; i++) {
-                    const neuron = document.createElement('div');
-                    neuron.className = 'neuron';
-                    const x = layer * 100;
-                    const y = (i + 1) * (300 / (neuronsInLayer + 1));
-                    neuron.style.left = `${x}px`;
-                    neuron.style.top = `${y}px`;
-                    container.appendChild(neuron);
-                    neurons.push({ element: neuron, x, y, layer });
-                }
+        // --- 5. Navbar Glass effect on Scroll ---
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('glass', 'shadow-lg');
+                navbar.classList.remove('bg-transparent');
+            } else {
+                navbar.classList.add('bg-transparent');
+                navbar.classList.remove('shadow-lg');
+                // Keep glass for blur effect even at top if preferred, or remove it
             }
-            
-            // Create connections
-            for (let i = 0; i < neurons.length; i++) {
-                for (let j = 0; j < neurons.length; j++) {
-                    if (neurons[j].layer === neurons[i].layer + 1) {
-                        const connection = document.createElement('div');
-                        connection.className = 'connection';
-                        const dx = neurons[j].x - neurons[i].x;
-                        const dy = neurons[j].y - neurons[i].y;
-                        const length = Math.sqrt(dx * dx + dy * dy);
-                        const angle = Math.atan2(dy, dx) * 180 / Math.PI;
-                        
-                        connection.style.width = `${length}px`;
-                        connection.style.left = `${neurons[i].x + 6}px`;
-                        connection.style.top = `${neurons[i].y + 6}px`;
-                        connection.style.transform = `rotate(${angle}deg)`;
-                        connection.style.animationDelay = `${Math.random() * 3}s`;
-                        
-                        container.appendChild(connection);
-                    }
-                }
-            }
-        }
+        });
 
-        // Data Flow Animation
-        function createDataFlow() {
-            const container = document.getElementById('dataFlow');
-            const paths = [
-                { start: { x: 0, y: 100 }, end: { x: 200, y: 100 } },
-                { start: { x: 0, y: 50 }, end: { x: 150, y: 150 } },
-                { start: { x: 0, y: 150 }, end: { x: 150, y: 50 } }
-            ];
-            
-            paths.forEach((path, index) => {
-                for (let i = 0; i < 5; i++) {
-                    const packet = document.createElement('div');
-                    packet.className = 'data-packet';
-                    packet.style.animation = `dataFlow${index} ${3 + i * 0.5}s linear infinite`;
-                    packet.style.animationDelay = `${i * 0.6}s`;
-                    container.appendChild(packet);
-                }
-                
-                // Create keyframes for this path
-                const style = document.createElement('style');
-                style.textContent = `
-                    @keyframes dataFlow${index} {
-                        0% {
-                            left: ${path.start.x}px;
-                            top: ${path.start.y}px;
-                            opacity: 0;
-                        }
-                        10% {
-                            opacity: 1;
-                        }
-                        90% {
-                            opacity: 1;
-                        }
-                        100% {
-                            left: ${path.end.x}px;
-                            top: ${path.end.y}px;
-                            opacity: 0;
-                        }
-                    }
-                `;
-                document.head.appendChild(style);
-            });
-        }
-
-        // Matrix Animation
-        function createMatrix() {
-            const container = document.getElementById('matrixContainer');
-            const size = 5;
-            const cellSize = 40;
-            
-            for (let i = 0; i < size; i++) {
-                for (let j = 0; j < size; j++) {
-                    const cell = document.createElement('div');
-                    cell.className = 'matrix-cell';
-                    cell.style.left = `${i * cellSize + 25}px`;
-                    cell.style.top = `${j * cellSize + 25}px`;
-                    cell.style.animationDelay = `${(i + j) * 0.2}s`;
-                    container.appendChild(cell);
-                }
-            }
-        }
-
-        // Particle System
-        function createParticleSystem() {
-            const container = document.getElementById('particleSystem');
-            
-            function createParticle() {
-                const particle = document.createElement('div');
-                particle.className = 'system-particle';
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.animationDuration = `${10 + Math.random() * 10}s`;
-                particle.style.animationDelay = `${Math.random() * 5}s`;
-                container.appendChild(particle);
-                
-                setTimeout(() => {
-                    particle.remove();
-                }, 20000);
-            }
-            
-            // Create initial particles
-            for (let i = 0; i < 20; i++) {
-                setTimeout(() => createParticle(), i * 500);
-            }
-            
-            // Continue creating particles
-            setInterval(createParticle, 1000);
-        }
-
-        // Initialize animations
-        createNeuralNetwork();
-        createDataFlow();
-        createMatrix();
-        createParticleSystem();
     </script>
 </body>
 </html>
